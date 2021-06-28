@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapty</title>
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <!-- Leaflet  -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <!-- custome JS & CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="contents">
+      <div class="logo">
+        <h1>Mapty_for_Workout</h1>
+      </div>
+      <ul class="workouts">
+        <form class="form hidden">
+          <div class="form-row">
+            <label class="form-label">Type</label>
+            <select class="form-input form-input--type">
+              <option value="running">Running</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Distance</label>
+            <input class="form-input form-input--distance" placeholder="km" />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Duration</label>
+            <input class="form-input form-input--duration" placeholder="min" />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Cadence</label>
+            <input class="form-input form-input--cadence" placeholder="step/min" />
+          </div>
+          <div class="form-row form-row--hidden">
+            <label class="form-label">Elevation</label>
+            <input class="form-input form-input--elevation" placeholder="meters" />
+          </div>
+          <button class="form-btn">OK</button>
+        </form>
+
+        <!-- workout list -->
+        <li class="sort hidden">
+          <select class="form-input form-input--type">
+            <option>Sort by</option>
+            <option value="distance">Distance</option>
+            <option value="time">Timer</option>
+          </select>
+          <button class="delete-all">Delete All</button>
+        </li>
+        <li class="workout workout-running" data-id="1234567890">
+          <div class="workout-content">
+            <h2 class="workout-title">⛅ Running on April 14</h2>
+            <button class="delete hidden"><i class="far fa-trash-alt"></i></button>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">🌏</span>
+            <span class="workout-value">Busan</span>
+            <!-- <span class="workout-unit"></span> -->
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">🏃‍♂️</span>
+            <span class="workout-value">5.2</span>
+            <span class="workout-unit">km</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">⏱</span>
+            <span class="workout-value">24</span>
+            <span class="workout-unit">min</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">⚡️</span>
+            <span class="workout-value">4.6</span>
+            <span class="workout-unit">min/km</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">🦶🏼</span>
+            <span class="workout-value">178</span>
+            <span class="workout-unit">spm</span>
+          </div>
+        </li>
+
+        <li class="workout workout-cycling" data-id="1234567891">
+          <div class="workout-content">
+            <h2 class="workout-title">🌦 Cycling on April 14</h2>
+            <button class="delete hidden"><i class="far fa-trash-alt"></i></button>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">🌏</span>
+            <span class="workout-value">Busan</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">🚴‍♀️</span>
+            <span class="workout-value">27</span>
+            <span class="workout-unit">km</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">⏱</span>
+            <span class="workout-value">95</span>
+            <span class="workout-unit">min</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">⚡️</span>
+            <span class="workout-value">16</span>
+            <span class="workout-unit">km/h</span>
+          </div>
+          <div class="workout-details">
+            <span class="workout-icon">⛰</span>
+            <span class="workout-value">223</span>
+            <span class="workout-unit">m</span>
+          </div>
+        </li>
+      </ul>
+      <div class="copyright">
+        &copy; Copyright by Min
+      </div>
+    </div>
+    <div class="map" id="map"></div>
+  </div>
+  <script src="js/js.js"></script>
+</body>
+
+</html>
