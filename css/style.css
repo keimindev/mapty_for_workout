@@ -39,6 +39,7 @@ button{
 
 }
 
+li { list-style: none;}
 
 /* ####### form ######  */
 
@@ -76,6 +77,12 @@ input {
   margin-bottom: 4rem;
 }
 
+/* day */
+.day{
+  background-color: rgba( 65, 132, 255, 0.3);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+}
 
 /* workouts  - form-row */
 .workouts{
@@ -87,6 +94,18 @@ input {
 }
 .workouts::-webkit-scrollbar {
   width: 0;
+}
+
+.day{ display: flex; margin-bottom: 1rem;}
+.day p{ width: 48%;}
+
+.day > ul { 
+  width: 52%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem 0.2rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .form{
@@ -207,6 +226,11 @@ input {
   align-items: baseline;
 }
 
+
+.copyright{ 
+  text-align: center;
+  color: var(--main-font-color);
+}
 
 
 
