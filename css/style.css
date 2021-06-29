@@ -97,14 +97,14 @@ input {
 }
 
 .day{ display: flex; margin-bottom: 1rem;}
-.day p{ width: 48%;}
+.day p{ width: 60%; font-size: 1.2rem;}
 
 .day > ul { 
-  width: 52%;
+  width: 40%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem 0.2rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -141,10 +141,11 @@ input {
 
 .form-input{
   background-color: rgba( 255, 255, 255, 0.8);
-  width: 80px;
-  padding: 0.2rem 0.5rem;
+  width: 100px;
+  padding: 0.5rem 0.5rem;
   border-radius: 5px;
   border: none;
+  font-size: 1rem;
   transition: all 0.2s;
 }
 
@@ -183,6 +184,7 @@ input {
   padding: 1rem 2rem;
   background-color: rgba( 65, 132, 255, 0.3);
   color: var(--main-font-color);
+  font-size: 1rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
