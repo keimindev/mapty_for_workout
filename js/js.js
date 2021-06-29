@@ -23,7 +23,55 @@ const date = new Date();
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];  
 today.innerText = `${months[date.getMonth()]} ${date.getDate()}`;
 
+class Workout{
+  date = new Date();
+  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];  
+  id = (Date.now() + '').slice(-10);
 
+ constructor(coords, distance, duration){
+   this.coords = coords;
+   this.distance = distance;
+   this.duration = duration;
+
+   today.innerText = `${months[date.getMonth()]} ${date.getDate()}`;
+ }
+
+}
+
+class Running extends Workout{
+  constructor(coords, distance, duration, cadence){
+    super(coords,distance, duration);
+    this.cadence = cadence;
+    this.calculatePace();
+
+  }
+
+  calculatePace(){
+    // min/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+class Cycling extends Workout{
+  constructor(coords, distance, duration, elevation){
+    super(coords,distance, duration);
+    this.elevation = elevation;
+    this.calculateSpeed();
+
+  }
+
+  calculateSpeed(){
+    //km/h
+    this.speed = this.distance / (this.duration / 60 );
+    return this.speed;
+  }
+}
+
+// const newRunning = new Running([39, -12], 5.3, 24, 170);
+// const newCycling = new Cycling([39, -12], 5.3, 24, 170);
+// console.log(newRunning, newCycling)
+
+// Architecture Application //
 
 class App{
   constructor(){
