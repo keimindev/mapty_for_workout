@@ -2,6 +2,7 @@
 
 // Elements
 const form = document.querySelector('.form');
+const containWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form-input--type');
 const workoutTitle = document.querySelector('.workout-title');
 const inputDistance = document.querySelector('.form-input--distance');
@@ -11,7 +12,7 @@ const inputElevation = document.querySelector('.form-input--elevation');
 const workoutIcon = document.querySelector('.workout-icon');
 const sortBy = document.querySelector('.sort');
 
-const deleteBtn = document.querySelector('.delete');
+// const deleteBtn = document.querySelector('.delete');
 const deleteAllBtn = document.querySelector('.delete-all');
 
 const today = document.querySelector('.day>p');
@@ -51,7 +52,6 @@ class Workout {
   ${months[this.date.getMonth()]} ${this.date.getDate()}
   `;
   }
-
 
 }
 
@@ -112,8 +112,9 @@ class App {
 
     deleteAllBtn.addEventListener('click', () => {
       this._deleteAllWorkout();
-
     });
+
+    containWorkouts.addEventListener('click', this._moveToPopup.bind(this));
 
   }
 
@@ -315,8 +316,25 @@ class App {
     };
 
     sortBy.insertAdjacentHTML('afterend', html);
+
   }
 
+  _moveToPopup(e){
+     const workoutEl = e.target.closest('.workout');
+  
+    //workout 아닌걸 클릭하면 계속 null탄생~return해줘야함
+     if(!workoutEl) return;
+  
+    const workout = this.#workouts.find(work => work.id === workoutEl.dataset.id);
+    
+    //leaflet doc에서 찾을 수 있음 
+    this.map.setView(workout.coords, 17, {
+      animate: true,
+      pan: {
+        duration: 1
+      }
+    });
+  }
 
   _setLocalStorage(){
     localStorage.setItem('workouts',  JSON.stringify(this.#workouts));
@@ -335,11 +353,6 @@ class App {
     });
 
     this._reset(workoutData);
-  }
-
-  _deleteAllWorkout(){
-
-    localStorage.removeItem('workouts');
   }
 
 
