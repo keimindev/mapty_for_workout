@@ -12,7 +12,6 @@ const inputElevation = document.querySelector('.form-input--elevation');
 const workoutIcon = document.querySelector('.workout-icon');
 const sortBy = document.querySelector('.sort');
 
-// const deleteBtn = document.querySelector('.delete');
 const deleteAllBtn = document.querySelector('.delete-all');
 
 const today = document.querySelector('.day>p');
@@ -110,9 +109,7 @@ class App {
 
     inputType.addEventListener('change', this._toggleElevationInput);
 
-    deleteAllBtn.addEventListener('click', () => {
-      this._deleteAllWorkout();
-    });
+    deleteAllBtn.addEventListener('click',this._deleteAllWorkout);
 
     containWorkouts.addEventListener('click', this._moveToPopup.bind(this));
 
@@ -140,7 +137,6 @@ class App {
     this.#workouts.forEach((work) => {
       this.renderWorkoutMarker(work);
     })
-
 
   }
 
@@ -199,7 +195,6 @@ class App {
     } = mapEvent.latlng;
     let workout;
     let place = workoutLocation.innerText;
-    console.log(place);
 
 
     if (type === 'running') {
@@ -227,7 +222,6 @@ class App {
         lng
       }, distance, duration, elevation);
     }
-
     //add new object to workout array
     this.#workouts.push(workout);
 
@@ -241,6 +235,7 @@ class App {
     this._setLocalStorage();
 
     sortBy.classList.remove('hidden');
+
     
   }
 
@@ -317,6 +312,8 @@ class App {
 
     sortBy.insertAdjacentHTML('afterend', html);
 
+    
+
   }
 
   _moveToPopup(e){
@@ -361,6 +358,22 @@ class App {
       sortBy.classList.remove('hidden');
     }
   }
+
+  _deleteAllWorkout(){
+    const workoutsList = document.querySelectorAll('.workout');
+    const popupOnMap = document.querySelectorAll('.leaflet-popup');
+    const popupIcon = document.querySelectorAll('.leaflet-marker-icon');
+
+    workoutsList.forEach( (ele) => ele.remove());
+    popupOnMap.forEach( (ele) => ele.remove());
+    popupIcon.forEach( (ele) => ele.remove());
+
+  
+    localStorage.removeItem('workouts');
+
+
+  }
+
 
 }
 

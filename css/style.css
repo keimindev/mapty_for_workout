@@ -185,6 +185,7 @@ input {
   background-color: rgba( 65, 132, 255, 0.3);
   color: var(--main-font-color);
   font-size: 1rem;
+  cursor: pointer;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
