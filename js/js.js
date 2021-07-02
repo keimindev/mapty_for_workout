@@ -19,7 +19,7 @@ const degree = document.querySelector('.degree');
 const weatherDisplay = document.querySelector('.weather');
 const workoutLocation = document.querySelector('.location');
 
-let map, mapEvent;
+let map, mapEvent, key;
 
 
 const date = new Date();
@@ -37,6 +37,10 @@ class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
   road = workoutLocation.innerText;
+  // key = 1;
+  // // for(key = 0, key < localStorage.length, key ++ ){
+  // //   return key ++;
+  // // }
 
   constructor(coords, distance, duration) {
     this.coords = coords;
@@ -312,8 +316,26 @@ class App {
 
     sortBy.insertAdjacentHTML('afterend', html);
 
-    
+    const detBtn = document.querySelector('.delete')
 
+    detBtn.addEventListener('click', (e) => {
+      const btn = e.target.parentNode;
+      const list = btn.parentNode;
+      const eleInList = list.parentNode;
+      const index = `${workout.id}`;
+
+      let arrIndex = this.#workouts.findIndex(item => item.id == index);
+      const itemId = this.#workouts[arrIndex].id;
+
+
+      if( index == itemId){
+        eleInList.remove();
+        this.#workouts.splice(arrIndex, 1);
+        localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+      }
+    
+    });
+;
   }
 
   _moveToPopup(e){
@@ -323,7 +345,7 @@ class App {
      if(!workoutEl) return;
   
     const workout = this.#workouts.find(work => work.id === workoutEl.dataset.id);
-    
+     
     //leaflet doc에서 찾을 수 있음 
     this.map.setView(workout.coords, 17, {
       animate: true,
@@ -370,8 +392,6 @@ class App {
 
   
     localStorage.removeItem('workouts');
-
-
   }
 
 
