@@ -12,6 +12,7 @@ const inputElevation = document.querySelector('.form-input--elevation');
 const workoutIcon = document.querySelector('.workout-icon');
 const sortBy = document.querySelector('.sort');
 
+
 const deleteAllBtn = document.querySelector('.delete-all');
 
 const today = document.querySelector('.day>p');
@@ -33,14 +34,14 @@ const getLocation = (currentLocation) => {
   };
 }
 
+
+
+
+
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
   road = workoutLocation.innerText;
-  // key = 1;
-  // // for(key = 0, key < localStorage.length, key ++ ){
-  // //   return key ++;
-  // // }
 
   constructor(coords, distance, duration) {
     this.coords = coords;
@@ -116,6 +117,12 @@ class App {
     deleteAllBtn.addEventListener('click',this._deleteAllWorkout);
 
     containWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+     
+    sortBy.addEventListener('change', (event) => {
+      event.preventDefault;
+      const option = event.target.value;
+      this._sort(option);
+    })
 
   }
 
@@ -327,9 +334,14 @@ class App {
       let arrIndex = this.#workouts.findIndex(item => item.id == index);
       const itemId = this.#workouts[arrIndex].id;
 
+      const popupOnMap = document.querySelector('.leaflet-popup');
+      const popupIcon = document.querySelector('.leaflet-marker-icon');
+
 
       if( index == itemId){
         eleInList.remove();
+        popupOnMap.remove();
+        popupIcon.remove();
         this.#workouts.splice(arrIndex, 1);
         localStorage.setItem('workouts', JSON.stringify(this.#workouts));
       }
@@ -383,18 +395,68 @@ class App {
 
   _deleteAllWorkout(){
     const workoutsList = document.querySelectorAll('.workout');
-    const popupOnMap = document.querySelectorAll('.leaflet-popup');
-    const popupIcon = document.querySelectorAll('.leaflet-marker-icon');
+    const allPopupOnMap = document.querySelectorAll('.leaflet-popup');
+    const allPopupIcon = document.querySelectorAll('.leaflet-marker-icon');
 
     workoutsList.forEach( (ele) => ele.remove());
-    popupOnMap.forEach( (ele) => ele.remove());
-    popupIcon.forEach( (ele) => ele.remove());
+    allPopupOnMap.forEach( (ele) => ele.remove());
+    allPopupIcon.forEach( (ele) => ele.remove());
 
   
     localStorage.removeItem('workouts');
   }
 
+  _sort(option){
+    // if( option == "type"){
+    //   this.#workouts.sort((a,b) => {
+    //     const run = a.type;
+    //     const cyc = b.type;
+    //     if(run > cyc){
+    //       return 1;
+    //     }
+  
+    //     if(cyc < run){
+    //       return -1;
+    //     }
+  
+    //     return 0;
+    //   })
+    // }
 
+    console.log(option)
+    const movs = sort ? this.#workouts.slice().sort((a,b) => a-b): this.#workouts
+    
+    
+    if(option == "distance"){
+    this.#workouts.sort((a,b) => {
+      if(a.distance > b.distance){
+        return 1;
+      }
+
+      if(a.distance < b.distance){
+        return -1;
+      }
+
+      return 0;
+    })
+    }
+
+
+    if( option == "duration"){
+    //duration
+    this.#workouts.sort((a,b) => {
+      if(a.duration > b.duration){
+        return 1;
+      }
+
+      if(a.duration < b.duration){
+        return -1;
+      }
+
+      return 0;
+    })
+    }
+  }
 }
 
 const app = new App();
