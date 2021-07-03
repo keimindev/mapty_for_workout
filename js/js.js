@@ -15,9 +15,10 @@ const sortBy = document.querySelector('.sort');
 
 const deleteAllBtn = document.querySelector('.delete-all');
 
-const today = document.querySelector('.day>p');
+const today = document.querySelector('.today');
 const degree = document.querySelector('.degree');
 const weatherDisplay = document.querySelector('.weather');
+const weatherDisplayImg = document.querySelector('.weather-icon>img');
 const workoutLocation = document.querySelector('.location');
 
 let map, mapEvent, key;
@@ -122,6 +123,7 @@ class App {
       event.preventDefault;
       const option = event.target.value;
       this._sort(option);
+
     })
 
   }
@@ -177,13 +179,18 @@ class App {
     fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&appid=${api.key}`)
       .then(weather => {return weather.json();})
       .then(this._displayWeather);
+
+
+
   }
 
   _displayWeather(weather) {
     today.innerText = `${months[date.getMonth()]} ${date.getDate()}`;
-    weatherDisplay.innerText = `${weather.weather[0].main}`;
+    weatherDisplay.innerText = `${weather.weather[0].description}`;
     degree.innerText = `${weather.main.temp}℃`;
-    workoutLocation.innerText = `${weather.name}.${weather.sys.country}`;
+    workoutLocation.innerText = `📍 ${weather.name}.${weather.sys.country}`;
+    weatherDisplayImg.src = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+ 
 
   }
 
@@ -277,7 +284,7 @@ class App {
       <button class="delete hidden"><i class="far fa-trash-alt"></i></button>
     </div>
     <div class="workout-details">
-      <span class="workout-icon">🌏&nbsp;</span>
+      <span class="workout-icon">📍&nbsp;</span>
       <span class="workout-location">${workout.road}</span>
     </div>
     <div class="workout-details">
@@ -407,55 +414,42 @@ class App {
   }
 
   _sort(option){
-    // if( option == "type"){
-    //   this.#workouts.sort((a,b) => {
-    //     const run = a.type;
-    //     const cyc = b.type;
-    //     if(run > cyc){
-    //       return 1;
-    //     }
-  
-    //     if(cyc < run){
-    //       return -1;
-    //     }
-  
-    //     return 0;
-    //   })
-    // }
 
     console.log(option)
-    const movs = sort ? this.#workouts.slice().sort((a,b) => a-b): this.#workouts
-    
-    
-    if(option == "distance"){
-    this.#workouts.sort((a,b) => {
-      if(a.distance > b.distance){
-        return 1;
-      }
-
-      if(a.distance < b.distance){
-        return -1;
-      }
-
-      return 0;
-    })
+    if(option == "date"){
+      this.#workouts.sort((a,b) => {
+        return b.date < a.date? 1 : -1; 
+      })
     }
+  
 
+    if(option == "type"){
+    this.#workouts.sort((a,b) => {
+      return b.type > a.type ? 1 : -1; 
+    })
+  }
+
+  if(option == "distance"){
+    this.#workouts.sort((a,b) => {
+      return b.distance > a.distance ? 1 : -1;
+    })
+  }
 
     if( option == "duration"){
     //duration
     this.#workouts.sort((a,b) => {
-      if(a.duration > b.duration){
-        return 1;
-      }
-
-      if(a.duration < b.duration){
-        return -1;
-      }
-
-      return 0;
+      return b.duration > a.duration ? 1 : -1;
     })
     }
+
+    const li = document.querySelectorAll('.workout')
+    console.log(li)
+    li.forEach( (ele) => ele.remove());
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+  });
+  
   }
 }
 

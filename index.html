@@ -27,14 +27,13 @@
         <h1>Mapty_for_Workout</h1>
       </div>
       <ul class="workouts">
-        <div class="day">
-          <p>Today</p>
-          <ul>
+          <ul class="day">
+            <li class="today"></li>
+            <li class="weather-icon"><img src=""/></li>
             <li class="weather"></li>
             <li class="degree"></li>
             <li class="location"></li>
           </ul>
-        </div>
         <form class="form hidden">
           <div class="form-row">
             <label class="form-label">Type</label>
@@ -65,7 +64,8 @@
         <!-- workout list -->
         <div class="sort hidden">
           <select class="form-input form-input--type">
-            <option>Sort by</option>
+            <option value="date">Sort by</option>
+            <option value="date">Date</option>
             <option value="type">Type</option>
             <option value="distance">Distance</option>
             <option value="duration">Duration</option>
