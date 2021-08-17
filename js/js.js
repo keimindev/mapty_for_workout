@@ -284,7 +284,7 @@ class App {
       <button class="delete hidden"><i class="far fa-trash-alt"></i></button>
     </div>
     <div class="workout-details">
-      <span class="workout-icon">📍&nbsp;</span>
+      <span class="workout-icon"></span>
       <span class="workout-location">${workout.road}</span>
     </div>
     <div class="workout-details">
